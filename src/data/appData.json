@@ -1,0 +1,160 @@
+{
+  "users": [
+    { "id": "USR-001", "name": "Arjun Krishnamurthy", "email": "arjun@email.com", "role": "homeowner", "district": "Chennai", "avatar": "https://i.pravatar.cc/150?img=11", "is_verified": true },
+    { "id": "USR-002", "name": "Priya Vendor", "email": "priya@tnbuilders.com", "role": "vendor", "district": "Coimbatore", "avatar": "https://i.pravatar.cc/150?img=5", "is_verified": true },
+    { "id": "USR-003", "name": "Admin Rajan", "email": "rajan@constructhub.in", "role": "admin", "district": "Chennai", "avatar": "https://i.pravatar.cc/150?img=3", "is_verified": true }
+  ],
+  "projects": [
+    {
+      "id": "PRJ-001", "name": "Project Alpha — 3BHK Villa", "phase": "Foundation", "status": "in_progress",
+      "budget_inr": 1100000, "spent_inr": 1240000, "completion_pct": 65,
+      "district": "Chennai", "start_date": "2024-08-01", "est_end_date": "2025-03-15",
+      "stages": [
+        { "id": "STG-001", "name": "Land Prep", "status": "completed", "pct": 100, "completed_date": "2024-08-12" },
+        { "id": "STG-002", "name": "Excavation", "status": "completed", "pct": 100, "completed_date": "2024-08-28" },
+        { "id": "STG-003", "name": "Foundation", "status": "active", "pct": 74, "checkpoint": "Structural Survey Pending" },
+        { "id": "STG-004", "name": "Pillar Work", "status": "upcoming", "pct": 0, "start_date": "2024-09-15" },
+        { "id": "STG-005", "name": "Brick Work", "status": "upcoming", "pct": 0, "start_date": "2024-10-01" },
+        { "id": "STG-006", "name": "Roofing", "status": "upcoming", "pct": 0, "start_date": "2024-11-01" },
+        { "id": "STG-007", "name": "Finishing", "status": "upcoming", "pct": 0, "start_date": "2025-01-01" }
+      ],
+      "team": [
+        { "id": "WRK-001", "name": "Arjun K.", "role": "Senior Foreman", "avatar": "https://i.pravatar.cc/150?img=12" },
+        { "id": "WRK-002", "name": "Muthu M.", "role": "Lead Mason", "avatar": "https://i.pravatar.cc/150?img=13" }
+      ],
+      "photos": [
+        { "id": "PHT-001", "url": "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=400", "caption": "Foundation trenches", "date": "2024-09-10" },
+        { "id": "PHT-002", "url": "https://images.unsplash.com/photo-1590725140246-20acddc1ec6d?w=400", "caption": "Concrete pouring", "date": "2024-09-15" }
+      ]
+    },
+    {
+      "id": "PRJ-002", "name": "Project Beta — Commercial Space", "phase": "Design", "status": "planning",
+      "budget_inr": 3500000, "spent_inr": 120000, "completion_pct": 8,
+      "district": "Coimbatore", "start_date": "2024-10-01", "est_end_date": "2025-12-01",
+      "stages": [
+        { "id": "STG-008", "name": "Design & Approval", "status": "active", "pct": 60 },
+        { "id": "STG-009", "name": "Site Preparation", "status": "upcoming", "pct": 0 }
+      ],
+      "team": [],
+      "photos": []
+    }
+  ],
+  "materials": [
+    { "id": "MAT-001", "name": "Premium River Sand", "category": "Aggregates & Sand", "description": "Grade A washed river sand. Ideal for plastering and concrete work. Sourced from sustainable riverbeds.", "price_inr": 3700, "unit": "ton", "min_order": 1, "stock_status": "in_stock", "badge": "New Arrival", "vendor_id": "VND-001", "image": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400" },
+    { "id": "MAT-002", "name": "Portland Cement OPC 53", "category": "Cement & Binding", "description": "High early strength, rapid setting binding agent. ASTM C150 Type I compliant.", "price_inr": 1025, "unit": "bag", "min_order": 10, "stock_status": "bulk_deal", "badge": "Bulk Deal", "vendor_id": "VND-001", "image": "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=400" },
+    { "id": "MAT-003", "name": "TMT Steel Rebar 12mm", "category": "Structural Steel", "description": "Fe 500D grade, superior ductility and seismic resistance. 12m standard lengths.", "price_inr": 73000, "unit": "ton", "min_order": 0.5, "stock_status": "in_demand", "badge": "In Demand", "vendor_id": "VND-001", "image": "https://images.unsplash.com/photo-1587293852726-70cdb56c2866?w=400" },
+    { "id": "MAT-004", "name": "Red Clay Facing Bricks", "category": "Masonry Units", "description": "Kiln-fired high density bricks. Consistent dimensions for aesthetic masonry work.", "price_inr": 70, "unit": "unit", "min_order": 500, "stock_status": "in_stock", "badge": null, "vendor_id": "VND-001", "image": "https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?w=400" },
+    { "id": "MAT-005", "name": "M-Sand Grade I", "category": "Aggregates & Sand", "description": "Manufactured sand, ideal substitute for river sand. Consistent gradation.", "price_inr": 2800, "unit": "ton", "min_order": 1, "stock_status": "in_stock", "badge": null, "vendor_id": "VND-001", "image": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400" },
+    { "id": "MAT-006", "name": "Coarse Aggregate 20mm", "category": "Aggregates & Sand", "description": "Crushed granite stone. Clean and graded for reinforced concrete structures.", "price_inr": 3100, "unit": "ton", "min_order": 1, "stock_status": "in_stock", "badge": null, "vendor_id": "VND-001", "image": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400" },
+    { "id": "MAT-007", "name": "Marine Plywood 18mm", "category": "Lumber & Timber", "description": "Water-resistant phenolic bonded. Perfect for concrete shuttering.", "price_inr": 4250, "unit": "sheet", "min_order": 5, "stock_status": "in_stock", "badge": null, "vendor_id": "VND-001", "image": "https://images.unsplash.com/photo-1541123437800-1bb1317badc2?w=400" },
+    { "id": "MAT-008", "name": "AAC Blocks 600x200x150", "category": "Masonry Units", "description": "Autoclaved Aerated Concrete blocks. Lightweight, thermal insulating.", "price_inr": 55, "unit": "unit", "min_order": 200, "stock_status": "low_stock", "badge": "Low Stock", "vendor_id": "VND-001", "image": "https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?w=400" }
+  ],
+  "equipment": [
+    { "id": "EQP-001", "name": "JCB 3CX Eco Backhoe", "category": "Earthmover", "model_year": 2023, "specs": ["92 HP Engine", "4.2m Dig Depth", "4WD"], "rate_inr_per_hour": 7000, "rate_inr_per_day": 45000, "operator_available": true, "fuel_included": false, "stock_status": "available", "vendor_id": "VND-001", "image": "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=400" },
+    { "id": "EQP-002", "name": "Liebherr LTM 1050 Crane", "category": "Lifting & Cranes", "model_year": 2022, "specs": ["38m Boom", "50T Capacity", "VarioBase"], "rate_inr_per_hour": null, "rate_inr_per_day": 102500, "operator_available": true, "fuel_included": true, "stock_status": "low", "vendor_id": "VND-001", "image": "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=400" },
+    { "id": "EQP-003", "name": "Scania P410 Tipper", "category": "Transport & Tippers", "model_year": 2023, "specs": ["8x4 Chassis", "18m³ Capacity", "410 HP"], "rate_inr_per_hour": null, "rate_inr_per_day": 37000, "operator_available": true, "fuel_included": false, "stock_status": "available", "vendor_id": "VND-001", "image": "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=400" },
+    { "id": "EQP-004", "name": "Concrete Mixer 500L", "category": "Earthmover", "model_year": 2023, "specs": ["500L Drum", "Electric Motor", "Portable"], "rate_inr_per_hour": 1500, "rate_inr_per_day": 8000, "operator_available": false, "fuel_included": false, "stock_status": "available", "vendor_id": "VND-001", "image": "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=400" }
+  ],
+  "workers": [
+    { "id": "WRK-001", "name": "Ramesh Kumar", "skill": "Mason", "skill_level": "Skilled", "experience_years": 8, "rating": 4.0, "total_ratings": 48, "daily_wage_inr": 850, "district": "Chennai", "is_verified": true, "is_available": true, "tags": ["Bricklaying", "Plastering", "Tiling"], "avatar": "https://i.pravatar.cc/150?img=14" },
+    { "id": "WRK-002", "name": "M. Selvam", "skill": "Carpenter", "skill_level": "Expert", "experience_years": 12, "rating": 5.0, "total_ratings": 124, "daily_wage_inr": 1100, "district": "Chennai", "is_verified": true, "is_available": true, "tags": ["Teak Work", "Modular Kitchen", "Furniture"], "avatar": "https://i.pravatar.cc/150?img=15" },
+    { "id": "WRK-003", "name": "S. Karthik", "skill": "Electrician", "skill_level": "Skilled", "experience_years": 6, "rating": 4.0, "total_ratings": 32, "daily_wage_inr": 750, "district": "Chennai", "is_verified": true, "is_available": true, "tags": ["Wiring", "Panel Repair", "Solar"], "avatar": "https://i.pravatar.cc/150?img=16" },
+    { "id": "WRK-004", "name": "K. Murugan", "skill": "Plumber", "skill_level": "Expert", "experience_years": 10, "rating": 4.5, "total_ratings": 87, "daily_wage_inr": 900, "district": "Madurai", "is_verified": true, "is_available": false, "tags": ["Pipe Fitting", "Drainage", "Sanitary"], "avatar": "https://i.pravatar.cc/150?img=17" },
+    { "id": "WRK-005", "name": "P. Suresh", "skill": "Mason", "skill_level": "Expert", "experience_years": 15, "rating": 4.8, "total_ratings": 203, "daily_wage_inr": 1200, "district": "Coimbatore", "is_verified": true, "is_available": true, "tags": ["RCC Work", "Bricklaying", "Waterproofing"], "avatar": "https://i.pravatar.cc/150?img=18" },
+    { "id": "WRK-006", "name": "R. Vijay", "skill": "Bar Bender", "skill_level": "Skilled", "experience_years": 5, "rating": 3.8, "total_ratings": 21, "daily_wage_inr": 700, "district": "Salem", "is_verified": true, "is_available": true, "tags": ["Rebar Cutting", "Binding", "Foundation"], "avatar": "https://i.pravatar.cc/150?img=19" }
+  ],
+  "group_bookings": [
+    { "id": "GRP-001", "name": "Foundation Team", "description": "4 Masons + 6 Helpers", "rate_inr_per_day": 7200, "members": 10, "phase": "Foundation" },
+    { "id": "GRP-002", "name": "Roofing Specialists", "description": "3 Experts + 2 Trainees", "rate_inr_per_day": 5400, "members": 5, "phase": "Roofing" },
+    { "id": "GRP-003", "name": "Electrical Team", "description": "2 Electricians + 1 Helper", "rate_inr_per_day": 3200, "members": 3, "phase": "Finishing" }
+  ],
+  "orders": [
+    { "id": "ORD-99214", "user_id": "USR-001", "type": "material", "status": "in_transit", "priority": "high", "items": [{ "product_id": "MAT-003", "name": "TMT Steel Rebar 12mm", "quantity": 12.5, "unit": "ton", "price_inr": 912500 }], "subtotal_inr": 912500, "gst_inr": 164250, "logistics_inr": 12000, "total_inr": 1088750, "delivery_address": "482 Industrial Way, Chennai, TN 600001", "scheduled_delivery": "2024-10-16T14:30:00Z", "carrier": "GlobalFreight", "tracking_id": "GF-T1002", "gate_pin": "4882", "created_at": "2024-10-12T09:00:00Z" },
+    { "id": "ORD-88219", "user_id": "USR-001", "type": "material", "status": "on_way", "priority": "normal", "items": [{ "product_id": "MAT-002", "name": "Portland Cement OPC 53", "quantity": 50, "unit": "bag", "price_inr": 51250 }], "subtotal_inr": 51250, "gst_inr": 9225, "logistics_inr": 2000, "total_inr": 62475, "delivery_address": "482 Industrial Way, Chennai, TN 600001", "scheduled_delivery": "2024-10-17T10:00:00Z", "created_at": "2024-10-13T11:00:00Z" }
+  ],
+  "invoices": [
+    { "id": "INV-2024-001", "order_id": "ORD-99214", "user_id": "USR-001", "amount_inr": 1088750, "gst_inr": 164250, "status": "paid", "date": "2024-09-24", "gst_number": "33AABCT1234F1Z5" },
+    { "id": "INV-2024-082", "order_id": "ORD-88219", "user_id": "USR-001", "amount_inr": 62475, "gst_inr": 9225, "status": "pending", "date": "2024-09-18" },
+    { "id": "INV-2024-045", "order_id": null, "user_id": "USR-001", "amount_inr": 172500, "gst_inr": 26250, "status": "paid", "date": "2024-09-12" }
+  ],
+  "appliances": [
+    { "id": "APL-001", "name": "Smart Fridge Elite", "category": "Kitchen", "brand": "LuxeLine", "model": "SFE-500", "room": "Kitchen", "status": "active", "purchase_date": "2024-01-15", "warranty_expiry": "2026-01-15", "energy_kwh_daily": 1.2, "image": "https://images.unsplash.com/photo-1571175443880-49e1d25b2bc5?w=400" },
+    { "id": "APL-002", "name": "PureAir Cooling X", "category": "Cooling", "brand": "AirMax", "model": "PAX-15T", "room": "Master Bedroom", "status": "maintenance", "purchase_date": "2023-06-10", "warranty_expiry": "2025-06-10", "energy_kwh_daily": 3.5, "image": "https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=400" },
+    { "id": "APL-003", "name": "UltraSilent Washer", "category": "Laundry", "brand": "CleanPro", "model": "USW-8KG", "room": "Laundry Room", "status": "active", "purchase_date": "2024-03-20", "warranty_expiry": "2027-03-20", "energy_kwh_daily": 0.9, "image": "https://images.unsplash.com/photo-1626806787461-102c1bfaaea1?w=400" },
+    { "id": "APL-004", "name": "EcoDry Dishwasher", "category": "Kitchen", "brand": "EcoHome", "model": "EDW-12P", "room": "Kitchen", "status": "issue", "purchase_date": "2023-11-05", "warranty_expiry": "2025-11-05", "energy_kwh_daily": 1.1, "image": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400" },
+    { "id": "APL-005", "name": "OLED Smart TV 65\"", "category": "Living Room", "brand": "VisionPro", "model": "VP-65OLED", "room": "Living Room", "status": "active", "purchase_date": "2024-02-14", "warranty_expiry": "2026-02-14", "energy_kwh_daily": 0.4, "image": "https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?w=400" },
+    { "id": "APL-006", "name": "Water Purifier Pro", "category": "Kitchen", "brand": "AquaClean", "model": "ACP-UV10", "room": "Kitchen", "status": "active", "purchase_date": "2023-08-01", "warranty_expiry": "2025-08-01", "energy_kwh_daily": 0.05, "image": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400" }
+  ],
+  "maintenance_alerts": [
+    { "id": "ALT-001", "appliance_id": "APL-002", "appliance_name": "PureAir Cooling X", "type": "Filter Replacement", "due_date": "2024-10-24", "overdue_days": 12, "status": "overdue", "priority": "high" },
+    { "id": "ALT-002", "appliance_id": "APL-006", "appliance_name": "Water Purifier Pro", "type": "UV Cartridge Change", "due_date": "2024-10-29", "overdue_days": 0, "status": "due_soon", "priority": "medium" },
+    { "id": "ALT-003", "appliance_id": "APL-003", "appliance_name": "UltraSilent Washer", "type": "Warranty Expiry", "due_date": "2024-11-05", "overdue_days": 0, "status": "upcoming", "priority": "low" }
+  ],
+  "service_history": [
+    { "id": "SVC-001", "appliance_id": "APL-001", "appliance_name": "Smart Fridge Elite", "type": "Annual Checkup", "date": "2024-10-12", "notes": "Compressor diagnostic clean. Replaced coolant seal.", "cost_inr": 15200, "warranty_covered": false },
+    { "id": "SVC-002", "appliance_id": "APL-003", "appliance_name": "UltraSilent Washer", "type": "Belt Repair", "date": "2024-09-05", "notes": "Drive belt tensioner adjusted. Deep lint trap flush.", "cost_inr": 9800, "warranty_covered": false },
+    { "id": "SVC-003", "appliance_id": "APL-002", "appliance_name": "PureAir Cooling X", "type": "Emergency Call", "date": "2024-08-22", "notes": "Sensor calibration and firmware synchronization.", "cost_inr": 0, "warranty_covered": true }
+  ],
+  "notifications": [
+    { "id": "NTF-001", "type": "delivery", "title": "Delivery Update", "message": "Your TMT Steel Rebar order is 12 miles away.", "time": "10 min ago", "read": false },
+    { "id": "NTF-002", "type": "maintenance", "title": "Maintenance Alert", "message": "AC Filter replacement is overdue by 12 days.", "time": "1 hour ago", "read": false },
+    { "id": "NTF-003", "type": "project", "title": "Milestone Reached", "message": "Foundation phase is 74% complete.", "time": "2 hours ago", "read": true },
+    { "id": "NTF-004", "type": "invoice", "title": "Invoice Ready", "message": "INV-2024-001 is ready for download.", "time": "Yesterday", "read": true }
+  ],
+  "vendor_dashboard": {
+    "vendor_id": "VND-001",
+    "monthly_revenue_inr": 1480000,
+    "pending_payout_inr": 240000,
+    "payout_eta": "2024-05-24",
+    "active_orders": [
+      { "id": "VO-001", "item": "2x JCB 3DX Backhoe", "type": "rental", "project": "Chennai-Salem ExpressWay (Sec-4)", "return_date": "2024-05-28", "status": "ongoing" },
+      { "id": "VO-002", "item": "450 MT M-Sand Grade I", "type": "material", "project": "L&T Construction - Coimbatore Site", "eta": "12:45 PM Today", "status": "in_transit" }
+    ],
+    "fleet": [
+      { "name": "Tower Cranes", "icon": "drone", "units": "04 Units", "model": "L-Series Max 12T", "utilization_pct": 75 },
+      { "name": "TMT Steel Bars", "icon": "layers", "units": "2,400 MT", "model": "FE 550D Reinforced", "utilization_pct": 40 },
+      { "name": "Chamber Bricks", "icon": "square_foot", "units": "12K Units", "model": "Wire-cut Grade A", "utilization_pct": 90 }
+    ],
+    "service_districts": ["Chennai", "Coimbatore", "Madurai", "Trichy"],
+    "revenue_chart": [
+      { "month": "May", "revenue": 980000, "orders": 14 },
+      { "month": "Jun", "revenue": 1120000, "orders": 18 },
+      { "month": "Jul", "revenue": 1050000, "orders": 16 },
+      { "month": "Aug", "revenue": 1380000, "orders": 22 },
+      { "month": "Sep", "revenue": 1290000, "orders": 20 },
+      { "month": "Oct", "revenue": 1480000, "orders": 24 }
+    ]
+  },
+  "admin_stats": {
+    "total_users": 1284,
+    "total_vendors": 87,
+    "total_revenue_inr": 48500000,
+    "active_projects": 234,
+    "districts_active": 12,
+    "monthly_growth_pct": 18,
+    "user_growth": [
+      { "month": "May", "homeowners": 180, "vendors": 12 },
+      { "month": "Jun", "homeowners": 210, "vendors": 15 },
+      { "month": "Jul", "homeowners": 195, "vendors": 11 },
+      { "month": "Aug", "homeowners": 260, "vendors": 18 },
+      { "month": "Sep", "homeowners": 240, "vendors": 16 },
+      { "month": "Oct", "homeowners": 290, "vendors": 21 }
+    ],
+    "district_stats": [
+      { "district": "Chennai", "projects": 89, "revenue_inr": 18500000 },
+      { "district": "Coimbatore", "projects": 54, "revenue_inr": 11200000 },
+      { "district": "Madurai", "projects": 38, "revenue_inr": 7800000 },
+      { "district": "Trichy", "projects": 29, "revenue_inr": 5900000 },
+      { "district": "Salem", "projects": 24, "revenue_inr": 5100000 }
+    ]
+  },
+  "tn_districts": ["Chennai", "Coimbatore", "Madurai", "Trichy", "Salem", "Tirupur", "Erode", "Vellore", "Thanjavur", "Tirunelveli", "Kanchipuram", "Dindigul"],
+  "appliance_library": [
+    { "id": "LIB-001", "name": "Smart Fridge", "model": "36\" French Door", "icon": "kitchen", "category": "Kitchen" },
+    { "id": "LIB-002", "name": "Split AC Unit", "model": "1.5 Ton Inverter", "icon": "ac_unit", "category": "Cooling" },
+    { "id": "LIB-003", "name": "OLED TV", "model": "65\" Smart Wall", "icon": "tv", "category": "Living Room" },
+    { "id": "LIB-004", "name": "Washing Machine", "model": "8KG Front Load", "icon": "local_laundry_service", "category": "Laundry" },
+    { "id": "LIB-005", "name": "Water Heater", "model": "25L Storage", "icon": "water_heater", "category": "Bathroom" },
+    { "id": "LIB-006", "name": "Microwave Oven", "model": "28L Convection", "icon": "microwave", "category": "Kitchen" }
+  ]
+}
