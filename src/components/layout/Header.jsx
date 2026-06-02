@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { toggleCart } from '../../store/slices/cartSlice'
@@ -88,7 +87,7 @@ export default function Header({ title = 'ConstructHub' }) {
 
           {/* Avatar */}
           <button
-            onClick={() => navigate('/profile')}
+            onClick={() => navigate('/dashboard')}
             className="flex items-center gap-2 pl-2 pr-3 py-1.5 hover:bg-gray-100 rounded-2xl transition-colors"
           >
             <img src={user?.avatar} alt={user?.name} className="w-8 h-8 rounded-full object-cover border-2 border-orange-200" />

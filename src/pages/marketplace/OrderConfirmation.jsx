@@ -1,8 +1,9 @@
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 export default function OrderConfirmation() {
   const navigate = useNavigate()
-  const orderId = `ORD-${Math.floor(10000 + Math.random() * 90000)}`
+  const [orderId] = useState(() => `ORD-${Math.floor(10000 + Math.random() * 90000)}`)
 
   return (
     <div className="min-h-screen flex items-center justify-center p-8 bg-gray-50">

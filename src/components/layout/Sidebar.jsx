@@ -5,13 +5,13 @@ import { toggleCart } from '../../store/slices/cartSlice'
 import { closeMobileSidebar } from '../../store/slices/uiSlice'
 
 const NAV = [
-  { to: '/dashboard',       icon: 'dashboard',        label: 'Dashboard' },
-  { to: '/ai-builder',      icon: 'architecture',     label: 'AI Home Builder' },
-  { to: '/marketplace',     icon: 'storefront',       label: 'Marketplace' },
-  { to: '/equipment',       icon: 'construction',     label: 'Equipment Rental' },
-  { to: '/workforce',       icon: 'engineering',      label: 'Workforce' },
-  { to: '/project-tracker', icon: 'analytics',        label: 'Project Tracker' },
-  { to: '/luxe-home',       icon: 'home_iot_device',  label: 'Luxe Home' },
+  { to: '/dashboard',       icon: 'dashboard',        label: 'Dashboard', roles: ['homeowner', 'vendor', 'admin'] },
+  { to: '/ai-builder',      icon: 'architecture',     label: 'AI Home Builder', roles: ['homeowner', 'admin'] },
+  { to: '/marketplace',     icon: 'storefront',       label: 'Marketplace', roles: ['homeowner', 'admin'] },
+  { to: '/equipment',       icon: 'construction',     label: 'Equipment Rental', roles: ['homeowner', 'vendor', 'admin'] },
+  { to: '/workforce',       icon: 'engineering',      label: 'Workforce', roles: ['homeowner', 'admin'] },
+  { to: '/project-tracker', icon: 'analytics',        label: 'Project Tracker', roles: ['homeowner', 'admin'] },
+  { to: '/luxe-home',       icon: 'home_iot_device',  label: 'Luxe Home', roles: ['homeowner'] },
 ]
 
 export default function Sidebar({ mobile = false }) {
@@ -51,7 +51,7 @@ export default function Sidebar({ mobile = false }) {
 
       {/* Nav */}
       <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto custom-scrollbar">
-        {NAV.map(({ to, icon, label }) => (
+        {NAV.filter(item => item.roles.includes(user?.role)).map(({ to, icon, label }) => (
           <NavLink
             key={to}
             to={to}

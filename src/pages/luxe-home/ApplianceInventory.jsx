@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import Badge from '../../components/ui/Badge'
 import SearchBar from '../../components/ui/SearchBar'
 import appData from '../../data/appData.json'
 
@@ -16,6 +15,10 @@ export default function ApplianceInventory() {
     const matchCat = cat === 'All' || a.category === cat
     const matchSearch = a.name.toLowerCase().includes(search.toLowerCase())
     return matchCat && matchSearch
+  }).sort((a, b) => {
+    if (sort === 'Name') return a.name.localeCompare(b.name)
+    if (sort === 'Recent') return new Date(b.purchase_date) - new Date(a.purchase_date)
+    return a.status.localeCompare(b.status)
   })
 
   const statusDot = { active:'bg-green-500', maintenance:'bg-yellow-500', issue:'bg-red-500' }

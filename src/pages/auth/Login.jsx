@@ -73,7 +73,7 @@ export default function Login() {
 
           {/* Role selector */}
           <div className="space-y-3 mb-8">
-            {ROLES.map(({ role, label, icon, desc, color }) => (
+            {ROLES.map(({ role, label, icon, desc }) => (
               <button
                 key={role}
                 onClick={() => setSelected(role)}

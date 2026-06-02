@@ -1,4 +1,3 @@
-import { useNavigate } from 'react-router-dom'
 import StatCard from '../../components/ui/StatCard'
 import RevenueChart from '../../components/charts/RevenueChart'
 import BudgetChart from '../../components/charts/BudgetChart'
@@ -8,8 +7,6 @@ import { formatINRShort } from '../../utils/helpers'
 const { admin_stats: stats } = appData
 
 export default function AdminDashboard() {
-  const navigate = useNavigate()
-
   return (
     <div className="p-6 max-w-[1600px] mx-auto space-y-8">
       {/* Header */}
@@ -79,7 +76,7 @@ export default function AdminDashboard() {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-50">
-              {stats.district_stats.map((d, i) => {
+              {stats.district_stats.map(d => {
                 const totalRev = stats.district_stats.reduce((s, x) => s + x.revenue_inr, 0)
                 const share = ((d.revenue_inr / totalRev) * 100).toFixed(1)
                 return (

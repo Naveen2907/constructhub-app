@@ -1,21 +1,38 @@
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 import { addItem } from '../../store/slices/cartSlice'
 import Badge from '../../components/ui/Badge'
+import Modal from '../../components/ui/Modal'
 import appData from '../../data/appData.json'
 import { formatINR } from '../../utils/helpers'
 
 const CATEGORIES = ['All', 'Earthmover', 'Lifting & Cranes', 'Transport & Tippers']
+const EMPTY_EQUIPMENT = {
+  name: '',
+  category: 'Earthmover',
+  model_year: new Date().getFullYear(),
+  specsText: '',
+  rate_inr_per_hour: '',
+  rate_inr_per_day: '',
+  stock_status: 'available',
+  image: 'https://images.unsplash.com/photo-1513828583688-c52646db42da?w=800',
+  operator_available: true,
+  fuel_included: false,
+}
 
 export default function EquipmentRental() {
   const dispatch = useDispatch()
-  const navigate = useNavigate()
+  const role = useSelector(s => s.auth.user?.role)
+  const canManage = ['vendor', 'admin'].includes(role)
   const [category, setCategory] = useState('All')
   const [rentalType, setRentalType] = useState({})
   const [added, setAdded] = useState({})
+  const [equipment, setEquipment] = useState(appData.equipment)
+  const [equipmentModal, setEquipmentModal] = useState(null)
+  const [form, setForm] = useState(EMPTY_EQUIPMENT)
 
-  const filtered = appData.equipment.filter(e => category === 'All' || e.category === category)
+  const filtered = equipment.filter(e => category === 'All' || e.category === category)
 
   const getRentalType = id => rentalType[id] || 'day'
   const setType = (id, type) => setRentalType(prev => ({ ...prev, [id]: type }))
@@ -23,12 +40,47 @@ export default function EquipmentRental() {
   const getRate = (item) => getRentalType(item.id) === 'hour' ? item.rate_inr_per_hour : item.rate_inr_per_day
   const getRateLabel = (item) => getRentalType(item.id) === 'hour' ? '/hr' : '/day'
 
-  const handleAdd = (item) => {
-    const rate = getRate(item)
+  const handleAdd = (item, type = getRentalType(item.id)) => {
+    const rate = type === 'hour' ? item.rate_inr_per_hour : item.rate_inr_per_day
     if (!rate) return
-    dispatch(addItem({ id: item.id, name: item.name, price_inr: rate, unit: getRentalType(item.id), image: item.image, quantity: 1 }))
+    setType(item.id, type)
+    dispatch(addItem({ id: item.id, name: item.name, price_inr: rate, unit: type, image: item.image, quantity: 1 }))
     setAdded(prev => ({ ...prev, [item.id]: true }))
     setTimeout(() => setAdded(prev => ({ ...prev, [item.id]: false })), 2000)
+  }
+
+  const openAddEquipment = () => {
+    setForm(EMPTY_EQUIPMENT)
+    setEquipmentModal({ mode: 'add' })
+  }
+
+  const openEditEquipment = item => {
+    setForm({
+      ...item,
+      specsText: item.specs.join(', '),
+      rate_inr_per_hour: item.rate_inr_per_hour || '',
+      rate_inr_per_day: item.rate_inr_per_day || '',
+    })
+    setEquipmentModal({ mode: 'edit', id: item.id })
+  }
+
+  const saveEquipment = event => {
+    event.preventDefault()
+    const nextItem = {
+      ...form,
+      id: equipmentModal.mode === 'edit' ? equipmentModal.id : `EQP-${String(equipment.length + 1).padStart(3, '0')}`,
+      specs: form.specsText.split(',').map(item => item.trim()).filter(Boolean),
+      model_year: Number(form.model_year),
+      rate_inr_per_hour: form.rate_inr_per_hour ? Number(form.rate_inr_per_hour) : null,
+      rate_inr_per_day: Number(form.rate_inr_per_day || 0),
+      vendor_id: 'VND-001',
+    }
+    delete nextItem.specsText
+
+    setEquipment(prev => equipmentModal.mode === 'edit'
+      ? prev.map(item => item.id === equipmentModal.id ? nextItem : item)
+      : [nextItem, ...prev])
+    setEquipmentModal(null)
   }
 
   return (
@@ -40,9 +92,14 @@ export default function EquipmentRental() {
         <div className="absolute inset-0 flex items-end p-8">
           <div>
             <span className="badge badge-orange mb-3">Fleet Status: Available</span>
-            <h1 className="text-4xl font-black text-white font-headline tracking-tight mb-2">Precision Engineering on Demand.</h1>
-            <p className="text-gray-300 max-w-lg">Industrial-grade machinery with guaranteed uptime, vetted operators, and seamless logistics.</p>
+            <h1 className="text-4xl font-black text-white font-headline tracking-tight mb-2">{canManage ? 'Manage Your Equipment Fleet.' : 'Precision Engineering on Demand.'}</h1>
+            <p className="text-gray-300 max-w-lg">{canManage ? 'Add, update, and monitor rental machinery available to ConstructHub customers.' : 'Industrial-grade machinery with guaranteed uptime, vetted operators, and seamless logistics.'}</p>
           </div>
+          {canManage && (
+            <button onClick={openAddEquipment} className="ml-auto bg-orange-500 hover:bg-orange-600 text-white px-5 py-3 rounded-2xl font-bold text-sm flex items-center gap-2 shadow-lg shadow-orange-900/20">
+              <span className="material-symbols-outlined text-sm">add</span> Add Equipment
+            </button>
+          )}
         </div>
       </div>
 
@@ -76,8 +133,8 @@ export default function EquipmentRental() {
 
           <div className="bg-white rounded-3xl p-5 shadow-ambient">
             <h3 className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-3">Need Custom Fleet?</h3>
-            <p className="text-sm text-gray-500 mb-4">Specialized equipment for enterprise infrastructure projects.</p>
-            <button className="btn-primary w-full text-sm">Consult Specialist</button>
+            <p className="text-sm text-gray-500 mb-4">{canManage ? 'Keep fleet rates, image references, and availability current.' : 'Specialized equipment for enterprise infrastructure projects.'}</p>
+            <button onClick={canManage ? openAddEquipment : undefined} className="btn-primary w-full text-sm">{canManage ? 'Add Fleet Asset' : 'Consult Specialist'}</button>
           </div>
         </aside>
 
@@ -120,16 +177,26 @@ export default function EquipmentRental() {
 
                   <div className="grid grid-cols-2 gap-3 mt-auto">
                     {item.rate_inr_per_hour && (
-                      <button onClick={() => { setType(item.id, 'hour'); handleAdd(item) }}
+                      <button onClick={() => handleAdd(item, 'hour')}
                         className={`py-3 rounded-2xl font-bold text-sm transition-all active:scale-95 ${added[item.id] && getRentalType(item.id) === 'hour' ? 'bg-green-500 text-white' : 'bg-orange-500 hover:bg-orange-600 text-white shadow-lg shadow-orange-200'}`}>
-                        Rent by Hour
+                        {canManage ? 'Test Hour Rate' : 'Rent by Hour'}
                       </button>
                     )}
-                    <button onClick={() => { setType(item.id, 'day'); handleAdd(item) }}
+                    <button onClick={() => handleAdd(item, 'day')}
                       className={`py-3 rounded-2xl font-bold text-sm transition-all active:scale-95 ${!item.rate_inr_per_hour ? 'col-span-2' : ''} ${added[item.id] && getRentalType(item.id) === 'day' ? 'bg-green-500 text-white' : 'bg-gray-900 hover:bg-gray-800 text-white'}`}>
-                      {added[item.id] ? 'Added!' : 'Rent by Day'}
+                      {added[item.id] ? 'Added!' : canManage ? 'Test Day Rate' : 'Rent by Day'}
                     </button>
                   </div>
+                  {canManage && (
+                    <div className="grid grid-cols-2 gap-3 mt-3">
+                      <button onClick={() => openEditEquipment(item)} className="py-2.5 rounded-2xl border border-orange-200 text-orange-600 font-bold text-sm hover:bg-orange-50 transition-colors flex items-center justify-center gap-2">
+                        <span className="material-symbols-outlined text-sm">edit</span> Update
+                      </button>
+                      <button onClick={() => setEquipment(prev => prev.map(asset => asset.id === item.id ? { ...asset, stock_status: asset.stock_status === 'available' ? 'low' : 'available' } : asset))} className="py-2.5 rounded-2xl border border-gray-200 text-gray-700 font-bold text-sm hover:bg-gray-50 transition-colors">
+                        Toggle Stock
+                      </button>
+                    </div>
+                  )}
                 </div>
               </div>
             ))}
@@ -148,13 +215,52 @@ export default function EquipmentRental() {
                   ))}
                 </ul>
               </div>
-              <button className="bg-orange-500 hover:bg-orange-600 text-white py-4 rounded-2xl font-bold transition-all active:scale-95">
-                Consult Specialist
+              <button onClick={canManage ? openAddEquipment : undefined} className="bg-orange-500 hover:bg-orange-600 text-white py-4 rounded-2xl font-bold transition-all active:scale-95">
+                {canManage ? 'Add Specialized Asset' : 'Consult Specialist'}
               </button>
             </div>
           </div>
         </div>
       </div>
+      <Modal open={!!equipmentModal} onClose={() => setEquipmentModal(null)} title={equipmentModal?.mode === 'edit' ? 'Update Equipment' : 'Add Equipment'} size="lg">
+        <form onSubmit={saveEquipment} className="space-y-5">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <input required value={form.name} onChange={e => setForm(prev => ({ ...prev, name: e.target.value }))} className="input-field" placeholder="Equipment name" />
+            <select value={form.category} onChange={e => setForm(prev => ({ ...prev, category: e.target.value }))} className="input-field">
+              {CATEGORIES.filter(item => item !== 'All').map(item => <option key={item}>{item}</option>)}
+            </select>
+            <input type="number" value={form.model_year} onChange={e => setForm(prev => ({ ...prev, model_year: e.target.value }))} className="input-field" placeholder="Model year" />
+            <select value={form.stock_status} onChange={e => setForm(prev => ({ ...prev, stock_status: e.target.value }))} className="input-field">
+              <option value="available">Available</option>
+              <option value="low">Low Stock</option>
+              <option value="out_of_stock">Out of Stock</option>
+            </select>
+            <input type="number" value={form.rate_inr_per_hour} onChange={e => setForm(prev => ({ ...prev, rate_inr_per_hour: e.target.value }))} className="input-field" placeholder="Hourly rate" />
+            <input required type="number" value={form.rate_inr_per_day} onChange={e => setForm(prev => ({ ...prev, rate_inr_per_day: e.target.value }))} className="input-field" placeholder="Daily rate" />
+          </div>
+          <textarea value={form.specsText} onChange={e => setForm(prev => ({ ...prev, specsText: e.target.value }))} className="input-field resize-none" rows={3} placeholder="Specs separated by comma, e.g. 92 HP Engine, 4WD" />
+          <div className="grid grid-cols-1 md:grid-cols-[1fr_180px] gap-4">
+            <input value={form.image} onChange={e => setForm(prev => ({ ...prev, image: e.target.value }))} className="input-field" placeholder="Image URL" />
+            <div className="h-28 rounded-2xl overflow-hidden bg-gray-100">
+              {form.image && <img src={form.image} alt="Equipment preview" className="w-full h-full object-cover" />}
+            </div>
+          </div>
+          <div className="flex flex-wrap gap-4">
+            <label className="flex items-center gap-2 text-sm font-bold text-gray-700">
+              <input type="checkbox" checked={form.operator_available} onChange={e => setForm(prev => ({ ...prev, operator_available: e.target.checked }))} className="rounded text-orange-500" />
+              Operator available
+            </label>
+            <label className="flex items-center gap-2 text-sm font-bold text-gray-700">
+              <input type="checkbox" checked={form.fuel_included} onChange={e => setForm(prev => ({ ...prev, fuel_included: e.target.checked }))} className="rounded text-orange-500" />
+              Fuel included
+            </label>
+          </div>
+          <div className="flex justify-end gap-3 pt-2">
+            <button type="button" onClick={() => setEquipmentModal(null)} className="btn-secondary">Cancel</button>
+            <button type="submit" className="btn-primary">{equipmentModal?.mode === 'edit' ? 'Save Updates' : 'Add Equipment'}</button>
+          </div>
+        </form>
+      </Modal>
     </div>
   )
 }

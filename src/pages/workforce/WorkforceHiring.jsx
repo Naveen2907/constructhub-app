@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import Badge from '../../components/ui/Badge'
 import SearchBar from '../../components/ui/SearchBar'
 import Modal from '../../components/ui/Modal'
 import appData from '../../data/appData.json'
@@ -22,8 +21,9 @@ export default function WorkforceHiring() {
   const filtered = appData.workers.filter(w => {
     const matchSkill = skill === 'All' || w.skill === skill
     const matchLevel = level === 'All' || w.skill_level === level
+    const matchDistrict = district === 'All' || w.district === district
     const matchSearch = w.name.toLowerCase().includes(search.toLowerCase()) || w.skill.toLowerCase().includes(search.toLowerCase())
-    return matchSkill && matchLevel && matchSearch
+    return matchSkill && matchLevel && matchDistrict && matchSearch
   })
 
   const handleBook = (worker) => {

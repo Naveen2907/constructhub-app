@@ -19,11 +19,17 @@ const QUICK_LINKS = [
 export default function CustomerDashboard() {
   const navigate = useNavigate()
   const { user } = useSelector(s => s.auth)
+  const role = user?.role || 'homeowner'
   const project = appData.projects[0]
   const orders  = appData.orders
   const invoices = appData.invoices
   const alerts  = appData.maintenance_alerts.filter(a => a.status !== 'upcoming')
   const chartData = appData.vendor_dashboard.revenue_chart
+  const roleQuickLinks = QUICK_LINKS.filter(link => {
+    if (role === 'homeowner') return true
+    if (role === 'vendor') return ['/equipment', '/vendor', '/dashboard'].includes(link.to)
+    return true
+  })
 
   return (
     <div className="p-6 space-y-8 max-w-[1600px] mx-auto">
@@ -46,11 +52,11 @@ export default function CustomerDashboard() {
             <p className="text-white/80 mt-2">You have <span className="font-bold text-white">{orders.length} active orders</span> and <span className="font-bold text-white">{alerts.length} maintenance alerts</span> today.</p>
           </div>
           <div className="flex gap-3 flex-wrap">
-            <button onClick={() => navigate('/ai-builder')} className="flex items-center gap-2 bg-white text-orange-600 font-bold px-5 py-3 rounded-2xl hover:bg-orange-50 transition-all active:scale-95 shadow-lg">
-              <span className="material-symbols-outlined">architecture</span> Start Designing
+            <button onClick={() => navigate(role === 'vendor' ? '/vendor' : role === 'admin' ? '/admin' : '/ai-builder')} className="flex items-center gap-2 bg-white text-orange-600 font-bold px-5 py-3 rounded-2xl hover:bg-orange-50 transition-all active:scale-95 shadow-lg">
+              <span className="material-symbols-outlined">{role === 'vendor' ? 'store' : role === 'admin' ? 'admin_panel_settings' : 'architecture'}</span> {role === 'vendor' ? 'Open Vendor Hub' : role === 'admin' ? 'Open Admin Panel' : 'Start Designing'}
             </button>
-            <button onClick={() => navigate('/marketplace')} className="flex items-center gap-2 bg-white/20 text-white font-bold px-5 py-3 rounded-2xl hover:bg-white/30 transition-all active:scale-95">
-              <span className="material-symbols-outlined">storefront</span> Marketplace
+            <button onClick={() => navigate(role === 'vendor' ? '/equipment' : '/marketplace')} className="flex items-center gap-2 bg-white/20 text-white font-bold px-5 py-3 rounded-2xl hover:bg-white/30 transition-all active:scale-95">
+              <span className="material-symbols-outlined">{role === 'vendor' ? 'construction' : 'storefront'}</span> {role === 'vendor' ? 'Manage Equipment' : 'Marketplace'}
             </button>
           </div>
         </div>
@@ -187,7 +193,16 @@ export default function CustomerDashboard() {
       <div>
         <p className="section-label mb-4">Quick Access</p>
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
-          {QUICK_LINKS.map(({ to, icon, label, color }) => (
+          {role === 'vendor' && (
+            <button onClick={() => navigate('/vendor')}
+              className="bg-white rounded-3xl p-5 shadow-ambient hover:-translate-y-1 hover:shadow-ambient-lg transition-all duration-300 flex flex-col items-center gap-3 group">
+              <div className="w-12 h-12 bg-gray-900 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                <span className="material-symbols-outlined text-white">store</span>
+              </div>
+              <span className="text-xs font-bold text-gray-700 text-center leading-tight">Vendor Hub</span>
+            </button>
+          )}
+          {roleQuickLinks.map(({ to, icon, label, color }) => (
             <button key={to} onClick={() => navigate(to)}
               className="bg-white rounded-3xl p-5 shadow-ambient hover:-translate-y-1 hover:shadow-ambient-lg transition-all duration-300 flex flex-col items-center gap-3 group">
               <div className={`w-12 h-12 ${color} rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform`}>

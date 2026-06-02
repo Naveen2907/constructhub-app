@@ -12,6 +12,18 @@ export default function ProjectTracker() {
 
   const overBudget = activeProject.spent_inr > activeProject.budget_inr
   const budgetDiff = Math.abs(activeProject.spent_inr - activeProject.budget_inr)
+  const resourceText = {
+    orange: 'text-orange-500',
+    indigo: 'text-indigo-500',
+    green: 'text-green-500',
+    gray: 'text-gray-500',
+  }
+  const resourceStatusText = {
+    orange: 'text-orange-600',
+    indigo: 'text-indigo-600',
+    green: 'text-green-600',
+    gray: 'text-gray-600',
+  }
 
   return (
     <div className="p-6 max-w-[1600px] mx-auto">
@@ -184,10 +196,10 @@ export default function ProjectTracker() {
                   {[['texture','OPC Cement (50kg)','120/150 Bags','orange'],['grid_on','TMT Steel Rods (12mm)','In Transit','indigo']].map(([icon,name,status,color]) => (
                     <div key={name} className="flex justify-between items-center p-3 bg-gray-50 rounded-2xl">
                       <div className="flex items-center gap-3">
-                        <span className={`material-symbols-outlined text-${color}-500 text-sm`}>{icon}</span>
+                        <span className={`material-symbols-outlined ${resourceText[color]} text-sm`}>{icon}</span>
                         <span className="font-semibold text-sm text-gray-900">{name}</span>
                       </div>
-                      <span className={`text-xs font-bold text-${color}-600`}>{status}</span>
+                      <span className={`text-xs font-bold ${resourceStatusText[color]}`}>{status}</span>
                     </div>
                   ))}
                   <button onClick={() => navigate('/marketplace')} className="w-full text-center py-2 text-xs font-bold text-orange-500 hover:underline uppercase tracking-widest">
@@ -201,10 +213,10 @@ export default function ProjectTracker() {
                   {[['nest_eco_leaf','Concrete Mixer','Operational','green'],['agriculture','Mini Excavator','Returned','gray']].map(([icon,name,status,color]) => (
                     <div key={name} className={`flex justify-between items-center p-3 bg-gray-50 rounded-2xl ${status === 'Returned' ? 'opacity-50' : ''}`}>
                       <div className="flex items-center gap-3">
-                        <span className={`material-symbols-outlined text-${color}-500 text-sm`}>{icon}</span>
+                        <span className={`material-symbols-outlined ${resourceText[color]} text-sm`}>{icon}</span>
                         <span className="font-semibold text-sm text-gray-900">{name}</span>
                       </div>
-                      <span className={`text-xs font-bold text-${color}-600`}>{status}</span>
+                      <span className={`text-xs font-bold ${resourceStatusText[color]}`}>{status}</span>
                     </div>
                   ))}
                   <button onClick={() => navigate('/equipment')} className="w-full text-center py-2 text-xs font-bold text-orange-500 hover:underline uppercase tracking-widest">

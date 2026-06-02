@@ -39,9 +39,14 @@ import VendorHub from './pages/vendor/VendorHub'
 // Admin
 import AdminDashboard from './pages/admin/AdminDashboard'
 
-function ProtectedRoute({ children }) {
+function ProtectedRoute({ children, roles }) {
   const { isAuthenticated } = useSelector(s => s.auth)
-  return isAuthenticated ? children : <Navigate to="/login" replace />
+  const role = useSelector(s => s.auth.user?.role)
+
+  if (!isAuthenticated) return <Navigate to="/login" replace />
+  if (roles && !roles.includes(role)) return <Navigate to="/dashboard" replace />
+
+  return children
 }
 
 export default function App() {
@@ -58,7 +63,7 @@ export default function App() {
         <Route path="/ai-builder/summary" element={<ProtectedRoute><DesignSummary /></ProtectedRoute>} />
 
         {/* Vendor — full screen dark layout */}
-        <Route path="/vendor" element={<ProtectedRoute><VendorHub /></ProtectedRoute>} />
+        <Route path="/vendor" element={<ProtectedRoute roles={['vendor', 'admin']}><VendorHub /></ProtectedRoute>} />
 
         {/* App Shell — sidebar + header */}
         <Route element={<ProtectedRoute><AppLayout /></ProtectedRoute>}>
@@ -73,7 +78,7 @@ export default function App() {
           <Route path="/luxe-home/appliances"    element={<ApplianceInventory />} />
           <Route path="/luxe-home/add-appliance" element={<AddAppliance />} />
           <Route path="/luxe-home/maintenance"   element={<MaintenanceTracker />} />
-          <Route path="/admin"              element={<AdminDashboard />} />
+          <Route path="/admin"              element={<ProtectedRoute roles={['admin']}><AdminDashboard /></ProtectedRoute>} />
         </Route>
 
         {/* Fallback */}

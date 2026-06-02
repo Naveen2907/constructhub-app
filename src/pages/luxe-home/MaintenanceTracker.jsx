@@ -1,9 +1,7 @@
-import { useNavigate } from 'react-router-dom'
 import appData from '../../data/appData.json'
 import { formatDate } from '../../utils/helpers'
 
 export default function MaintenanceTracker() {
-  const navigate = useNavigate()
   const alerts = appData.maintenance_alerts
   const history = appData.service_history
 

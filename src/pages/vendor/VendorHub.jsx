@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom'
 import RevenueChart from '../../components/charts/RevenueChart'
 import ProgressBar from '../../components/ui/ProgressBar'
 import appData from '../../data/appData.json'
-import { formatINRShort, formatINR } from '../../utils/helpers'
+import { formatINRShort } from '../../utils/helpers'
 
 const { vendor_dashboard: vd } = appData
 
