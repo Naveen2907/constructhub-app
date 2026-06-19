@@ -70,6 +70,13 @@
 
 @layer utilities {
   .text-balance { text-wrap: balance; }
+  .floating-anim {
+    animation: floating 6s ease-in-out infinite;
+  }
+  @keyframes floating {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
   .gradient-orange { background: linear-gradient(135deg, #f2711c, #ffb691); }
   .gradient-dark   { background: linear-gradient(135deg, #131313, #201f1f); }
   .gradient-indigo { background: linear-gradient(135deg, #3525cd, #4f46e5); }

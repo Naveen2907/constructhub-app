@@ -4,6 +4,9 @@ import { useSelector } from 'react-redux'
 // Layout
 import AppLayout from './components/layout/AppLayout'
 
+// Landing
+import LandingPage from './pages/LandingPage'
+
 // Auth
 import Login from './pages/auth/Login'
 
@@ -14,6 +17,7 @@ import CustomerDashboard from './pages/dashboard/CustomerDashboard'
 import AIBuilderWelcome from './pages/ai-builder/AIBuilderWelcome'
 import AILayoutCanvas from './pages/ai-builder/AILayoutCanvas'
 import DesignSummary from './pages/ai-builder/DesignSummary'
+import Visualizer3D from './pages/ai-builder/Visualizer3D'
 
 // Marketplace
 import MaterialsMarketplace from './pages/marketplace/MaterialsMarketplace'
@@ -54,12 +58,13 @@ export default function App() {
     <BrowserRouter>
       <Routes>
         {/* Public */}
+        <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/" element={<Navigate to="/dashboard" replace />} />
 
         {/* AI Builder — full screen, no sidebar */}
         <Route path="/ai-builder" element={<ProtectedRoute><AIBuilderWelcome /></ProtectedRoute>} />
         <Route path="/ai-builder/canvas" element={<ProtectedRoute><AILayoutCanvas /></ProtectedRoute>} />
+        <Route path="/ai-builder/3d" element={<ProtectedRoute><Visualizer3D /></ProtectedRoute>} />
         <Route path="/ai-builder/summary" element={<ProtectedRoute><DesignSummary /></ProtectedRoute>} />
 
         {/* Vendor — full screen dark layout */}

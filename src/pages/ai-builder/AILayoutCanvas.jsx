@@ -327,7 +327,10 @@ export default function AILayoutCanvas() {
         </div>
         <div className="hidden md:flex items-center gap-2">
           {['2D', '3D'].map(item => (
-            <button key={item} onClick={() => setView(item)} className={`px-5 py-2.5 rounded-2xl text-sm font-black flex items-center gap-2 shadow-sm ${view === item ? 'bg-blue-600 text-white' : 'bg-slate-100 text-slate-700'}`}>
+            <button key={item} onClick={() => {
+              if (item === '3D') navigate('/ai-builder/3d')
+              else setView(item)
+            }} className={`px-5 py-2.5 rounded-2xl text-sm font-black flex items-center gap-2 shadow-sm ${view === item ? 'bg-blue-600 text-white' : 'bg-slate-100 text-slate-700'}`}>
               <span className="material-symbols-outlined text-base">{item === '2D' ? 'map' : 'view_in_ar'}</span>{item}
             </button>
           ))}

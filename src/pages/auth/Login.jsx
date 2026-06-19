@@ -38,7 +38,12 @@ export default function Login() {
             <div className="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center">
               <span className="material-symbols-outlined text-white">construction</span>
             </div>
-            <span className="text-2xl font-black text-white font-headline tracking-tight">ConstructHub</span>
+            <span
+              className="text-2xl font-black text-white font-headline tracking-tight cursor-pointer hover:opacity-80 transition-opacity"
+              onClick={() => navigate('/')}
+            >
+              ConstructHub
+            </span>
           </div>
           <h1 className="text-5xl font-black text-white font-headline leading-tight mb-6">
             Build Smarter.<br />Live Better.
@@ -68,6 +73,13 @@ export default function Login() {
             <span className="text-2xl font-black text-gray-900 font-headline">ConstructHub</span>
           </div>
 
+          <button
+            onClick={() => navigate('/')}
+            className="flex items-center gap-1 text-sm text-gray-400 hover:text-orange-500 transition-colors mb-8 -ml-1"
+          >
+            <span className="material-symbols-outlined text-base">arrow_back</span>
+            Back to Home
+          </button>
           <h2 className="text-3xl font-black text-gray-900 font-headline mb-2">Welcome back</h2>
           <p className="text-gray-500 mb-8">Select your role to continue with demo access</p>
 
